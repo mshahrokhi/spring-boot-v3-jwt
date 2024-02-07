@@ -4,12 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Setter
 @Getter
@@ -23,9 +20,9 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
         for (UserRole userRole : roles) {
-            authorities.add(new SimpleGrantedAuthority(userRole.getAuthority()));
+            authorities.addAll(userRole.getAuthorities());
         }
         return authorities;
     }
