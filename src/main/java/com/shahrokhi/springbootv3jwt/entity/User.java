@@ -16,6 +16,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(unique = true)
     private String username;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Set<UserRole> roles = new HashSet<>();
 
     @Override
